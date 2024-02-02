@@ -31,5 +31,6 @@ module.exports = {
     "comma-dangle": "off",
     "object-curly-newline": "off",
     "import/order": "off",
+    "import/prefer-default-export": "off",
   },
 };

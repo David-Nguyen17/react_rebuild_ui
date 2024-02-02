@@ -28,7 +28,7 @@ function App() {
       <AutoComplete
         data={COUNTRIES}
         value={option}
-        onChangeValue={onChangeValue}
+        valueChange={onChangeValue}
         getOptionKey={(item) => item?.code}
         getOptionLabel={(item) => item?.label}
       />
