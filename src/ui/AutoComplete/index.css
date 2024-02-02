@@ -1,0 +1,52 @@
+.container {
+    width: 320px;
+}
+
+.input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: 1px solid gray;
+    padding: 10px 12px;
+    border-radius: 8px;
+    justify-content: space-between;
+
+}
+
+ul {
+    width: 100%;
+    border: 1px solid gray;
+    border-radius: 4px;
+    height: 320px;
+    overflow-x: auto;
+    padding: 8px 8px;
+    margin: 0;
+}
+
+input {
+    border: none;
+    width: 80%;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+}
+
+li {
+    padding: 6px 4px;
+}
+
+li:hover {
+    background-color: #3b82f680;
+}
+
+.icon:hover {
+    background-color: rgba(207, 202, 202, 0.54);
+    border-radius: 100px;
+}
+
+.icon {
+    color: rgba(81, 78, 78, 0.54);
+
+}
