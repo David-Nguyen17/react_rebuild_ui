@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import COUNTRIES from "./data/country";
+import DialogPage from "./pages/dialog";
 import HomePage from "./pages/user_1";
 import MessagePage from "./pages/user_2";
 import localStore from "./store";
@@ -32,14 +33,7 @@ function App() {
           valueChange={onChangeValue}
           keyLabel="label"
         />
-        <AutoComplete
-          data={COUNTRIES}
-          value={option}
-          valueChange={onChangeValue}
-          getOptionKey={(item) => item?.code}
-          getOptionLabel={(item) => item?.label}
-          keyLabel="label"
-        />
+        <DialogPage />
       </div>
     </div>
   );

@@ -1,0 +1,102 @@
+.container-dialog {
+    border: 1px solid gray;
+    border-radius: 8px;
+    max-width: 50%;
+    min-width: 240px;
+    max-height: 700px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.body {
+    overflow: auto;
+    max-height: 400px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 500;
+    color: black;
+    text-align: left;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    max-width: 84%;
+}
+
+.header {
+    position: relative;
+    min-height: 24px;
+    max-height: 100px;
+    overflow: auto;
+}
+
+.footer {
+    max-height: 200px;
+    overflow: auto;
+}
+
+.header-title {
+    align-items: center;
+    display: flex;
+}
+
+.dialog-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: visible;
+}
+
+.close-modal {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+.common-modal {
+    border-bottom: 1px solid rgb(213, 209, 209);
+    padding: 24px;
+    overflow: hidden;
+}
+
+.common-dialog {
+    padding: 16px 24px;
+}
+
+.common-dialog-body {
+    padding: 0px 24px;
+}
+
+.common-modal-body {
+    border-bottom: 1px solid rgb(213, 209, 209);
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.button-action {
+    background-color: white;
+    color: black;
+    border: none;
+    margin: 0;
+    font-weight: bold;
+    width: 72px;
+}
+
+.button-action:hover {
+    background-color: rgb(213, 209, 209);
+}
+
+.action-footer {
+    display: flex;
+    align-items: center;
+}
