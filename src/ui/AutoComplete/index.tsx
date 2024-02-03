@@ -1,10 +1,8 @@
-import {
-  Cross2Icon,
-  TriangleDownIcon,
-  TriangleUpIcon,
-} from "@radix-ui/react-icons";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ListOption from "./ListOption";
+import IconCaretDown from "./icons/caret-down-outline.png";
+import IconCareUp from "./icons/caret-up-outline.png";
+import IconClose from "./icons/close-outline.png";
 import "./index.css";
 
 export interface IProps<T> {
@@ -52,6 +50,7 @@ function AutoComplete<T>(props: IProps<T>) {
       event?.target instanceof Node &&
       !refDiv.current?.contains(event?.target)
     ) {
+      console.log("vao dat");
       setShowData(false);
     }
   };
@@ -92,11 +91,24 @@ function AutoComplete<T>(props: IProps<T>) {
           autoComplete="off"
           onChange={onChangeText}
         />
-        {valueText ? <Cross2Icon onClick={onClear} className="icon" /> : null}
+        {valueText ? (
+          <img
+            onClick={onClear}
+            className="icon"
+            aria-hidden
+            alt="Close Icon"
+            src={IconClose}
+          />
+        ) : null}
         {isShowData ? (
-          <TriangleUpIcon width={20} height={20} className="icon" />
+          <img className="icon" aria-hidden alt="Caret Icon" src={IconCareUp} />
         ) : (
-          <TriangleDownIcon width={20} height={20} className="icon" />
+          <img
+            className="icon"
+            aria-hidden
+            alt="Caret Icon"
+            src={IconCaretDown}
+          />
         )}
       </div>
       {isShowData ? (

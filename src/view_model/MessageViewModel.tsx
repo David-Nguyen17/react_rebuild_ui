@@ -55,7 +55,6 @@ const MessageViewModel = (props: IProps) => {
     }
     return <div>{JSON.stringify(listMessages)}</div>;
   };
-  console.log("list", listMessages);
   useEffect(() => {
     localStore.subscribe(keySubscriber, onSubscribeUpdateData);
     return () => {

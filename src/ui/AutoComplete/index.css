@@ -1,5 +1,5 @@
 .container {
-    width: 320px;
+    width: 400px;
     position: relative;
 }
 
@@ -43,6 +43,8 @@ input:focus {
 .item-option {
     display: flex;
     padding: 6px 4px;
+    align-items: center;
+    flex-wrap: wrap;
     white-space: pre-wrap;
 }
 
@@ -57,7 +59,8 @@ input:focus {
 
 .icon {
     color: rgba(81, 78, 78, 0.54);
-
+    width: 20px;
+    height: 20px;
 }
 
 .active {
@@ -65,7 +68,6 @@ input:focus {
     color: black;
 }
 
-.inactive {}
 
 .item-option-hide {
     display: none;

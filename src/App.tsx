@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
-import COUNTRIES from "./data/country";
+import { useEffect } from "react";
+import AutoCompletePage from "./pages/auto_complete";
 import DialogPage from "./pages/dialog";
 import HomePage from "./pages/user_1";
 import MessagePage from "./pages/user_2";
 import localStore from "./store";
-import AutoComplete from "./ui/AutoComplete";
 
 export interface Country {
   code: string;
@@ -13,10 +12,6 @@ export interface Country {
 }
 
 function App() {
-  const [option, setOption] = useState<Country | null>(null);
-  const onChangeValue = (value: Country | null) => {
-    setOption(value);
-  };
   useEffect(() => {
     localStore.initData();
   }, []);
@@ -27,12 +22,7 @@ function App() {
         <MessagePage />
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-        <AutoComplete
-          data={COUNTRIES}
-          value={option}
-          valueChange={onChangeValue}
-          keyLabel="label"
-        />
+        <AutoCompletePage />
         <DialogPage />
       </div>
     </div>
