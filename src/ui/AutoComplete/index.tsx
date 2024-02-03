@@ -3,7 +3,7 @@ import {
   TriangleDownIcon,
   TriangleUpIcon,
 } from "@radix-ui/react-icons";
-import { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import ListOption from "./ListOption";
 import "./index.css";
 
@@ -11,11 +11,12 @@ export interface IProps<T> {
   data: T[];
   value?: T | null;
   valueChange?: (value: T | null) => void;
-  getOptionLabel: (value: T) => string;
-  getOptionKey: (value: T) => string | number;
+  getOptionLabel?: (value: T) => string;
+  getOptionKey?: (value: T) => string | number;
   placeholder?: string;
   styleContainer?: string | undefined;
   styleInput?: string | undefined;
+  keyLabel: keyof T;
 }
 
 function AutoComplete<T>(props: IProps<T>) {
@@ -28,13 +29,18 @@ function AutoComplete<T>(props: IProps<T>) {
     placeholder,
     styleContainer = "",
     styleInput = "",
+    keyLabel,
   } = props;
   const [isShowData, setShowData] = useState(false);
   const refInput = useRef<HTMLInputElement | null>(null);
   const refDiv = useRef<HTMLDivElement | null>(null);
-  const [valueText, setValueText] = useState(
-    value ? getOptionLabel(value) : ""
-  );
+  const handleDefaultTitle = useCallback(() => {
+    if (getOptionLabel && value) {
+      return getOptionLabel(value);
+    }
+    return (value ? value?.[keyLabel] : "") as string;
+  }, [getOptionLabel, keyLabel, value]);
+  const [valueText, setValueText] = useState(handleDefaultTitle());
   const onFocus = () => {
     if (!isShowData) {
       setShowData(true);
@@ -65,12 +71,13 @@ function AutoComplete<T>(props: IProps<T>) {
   }, [refDiv]);
   const onClickItem = (item: T) => {
     valueChange(item);
+    setShowData(false);
   };
   useEffect(() => {
     if (value) {
-      setValueText(getOptionLabel(value));
+      setValueText(handleDefaultTitle());
     }
-  }, [getOptionLabel, value]);
+  }, [getOptionLabel, handleDefaultTitle, value]);
   return (
     <div className={`container ${styleContainer}`} aria-hidden ref={refDiv}>
       <div className={`input ${styleInput}`} onClick={onFocus} aria-hidden>
@@ -99,6 +106,7 @@ function AutoComplete<T>(props: IProps<T>) {
           getOptionKey={getOptionKey}
           getOptionLabel={getOptionLabel}
           onClick={onClickItem}
+          keyLabel={keyLabel}
         />
       ) : null}
     </div>

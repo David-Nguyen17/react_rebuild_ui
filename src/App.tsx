@@ -25,13 +25,22 @@ function App() {
         <HomePage />
         <MessagePage />
       </div>
-      <AutoComplete
-        data={COUNTRIES}
-        value={option}
-        valueChange={onChangeValue}
-        getOptionKey={(item) => item?.code}
-        getOptionLabel={(item) => item?.label}
-      />
+      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+        <AutoComplete
+          data={COUNTRIES}
+          value={option}
+          valueChange={onChangeValue}
+          keyLabel="label"
+        />
+        <AutoComplete
+          data={COUNTRIES}
+          value={option}
+          valueChange={onChangeValue}
+          getOptionKey={(item) => item?.code}
+          getOptionLabel={(item) => item?.label}
+          keyLabel="label"
+        />
+      </div>
     </div>
   );
 }

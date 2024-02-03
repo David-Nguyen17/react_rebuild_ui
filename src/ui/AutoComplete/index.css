@@ -1,5 +1,6 @@
 .container {
     width: 320px;
+    position: relative;
 }
 
 .input {
@@ -10,17 +11,23 @@
     padding: 10px 12px;
     border-radius: 8px;
     justify-content: space-between;
+    overflow: hidden;
 
 }
 
 .list-option {
     width: 100%;
+    position: absolute;
+    right: 0;
+    left: 0;
     border: 1px solid gray;
     border-radius: 4px;
     height: 320px;
     overflow-x: auto;
     padding: 8px 8px;
     margin: 0;
+    background-color: white;
+    z-index: 100;
 }
 
 input {
@@ -40,7 +47,7 @@ input:focus {
 }
 
 .item-option:hover {
-    background-color: #3b82f680;
+    background-color: #d2def280;
 }
 
 .icon:hover {
