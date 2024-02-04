@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import IconRight from "./IconRight";
 import ListOption from "./ListOption";
-import IconCaretDown from "./icons/caret-down-outline.png";
-import IconCareUp from "./icons/caret-up-outline.png";
 import IconClose from "./icons/close-outline.png";
 import "./index.css";
 
@@ -40,7 +39,7 @@ function AutoComplete<T>(props: IProps<T>) {
     return (value ? value?.[keyLabel] : "") as string;
   }, [getOptionLabel, keyLabel, value]);
   const [valueText, setValueText] = useState(handleDefaultTitle());
-  const onFocus = () => {
+  const openOption = () => {
     if (!isShowData) {
       setShowData(true);
     }
@@ -85,15 +84,13 @@ function AutoComplete<T>(props: IProps<T>) {
   }, [getOptionLabel, handleDefaultTitle, value]);
   return (
     <div className={`container ${styleContainer}`} aria-hidden ref={refDiv}>
-      <div className={`input ${styleInput}`} onClick={onFocus} aria-hidden>
+      <div className={`input ${styleInput}`} onClick={openOption} aria-hidden>
         <input
-          onFocus={onFocus}
           ref={refInput}
           value={valueText}
           placeholder={placeholder || "Select the country"}
           autoCapitalize="off"
           autoCorrect="off"
-          onClick={onFocus}
           autoComplete="off"
           onChange={onChangeText}
         />
@@ -106,16 +103,7 @@ function AutoComplete<T>(props: IProps<T>) {
             src={IconClose}
           />
         ) : null}
-        {isShowData ? (
-          <img className="icon" aria-hidden alt="Caret Icon" src={IconCareUp} />
-        ) : (
-          <img
-            className="icon"
-            aria-hidden
-            alt="Caret Icon"
-            src={IconCaretDown}
-          />
-        )}
+        <IconRight isUp={isShowData} />
       </div>
       {isShowData ? (
         <ListOption

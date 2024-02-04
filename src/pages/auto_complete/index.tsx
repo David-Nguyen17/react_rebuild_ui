@@ -25,6 +25,7 @@ const AutoCompletePage = () => {
         value={user}
         valueChange={onChangeValueUser}
         keyLabel="name"
+        getOptionLabel={(item) => item?.phone}
       />
     </div>
   );
