@@ -12,19 +12,21 @@ const MessageViewModel = (props: IProps) => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState("");
   const onSendMessage = () => {
-    const currentMessages = localStore.getValue<Message[]>(currentKey);
-    if (currentMessages?.length) {
-      localStore.addKeyValue<Message[]>(currentKey, [
-        ...currentMessages,
-        { id: uuidv4(), message },
-      ]);
-    } else {
-      localStore.addKeyValue<Message[]>(currentKey, [
-        {
-          id: uuidv4(),
-          message,
-        },
-      ]);
+    if (message?.trim()?.length) {
+      const currentMessages = localStore.getValue<Message[]>(currentKey);
+      if (currentMessages?.length) {
+        localStore.addKeyValue<Message[]>(currentKey, [
+          ...currentMessages,
+          { id: uuidv4(), message },
+        ]);
+      } else {
+        localStore.addKeyValue<Message[]>(currentKey, [
+          {
+            id: uuidv4(),
+            message,
+          },
+        ]);
+      }
     }
     setMessage("");
   };
@@ -43,7 +45,9 @@ const MessageViewModel = (props: IProps) => {
   const handleRenderContent = () => {
     if (Array.isArray(listMessages)) {
       return listMessages?.map((item) => (
-        <div key={item?.id ?? uuidv4()}>{item?.message}</div>
+        <div key={item?.id ?? uuidv4()}>
+          {item?.message ?? JSON.stringify(item)}
+        </div>
       ));
     }
     if (
