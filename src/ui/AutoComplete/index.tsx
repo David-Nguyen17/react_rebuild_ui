@@ -42,6 +42,7 @@ function AutoComplete<T>(props: IProps<T>) {
   const openOption = () => {
     if (!isShowData) {
       setShowData(true);
+      refInput.current?.focus();
     }
   };
   const handleClickOutside = (event: MouseEvent) => {
@@ -64,6 +65,7 @@ function AutoComplete<T>(props: IProps<T>) {
     setValueText("");
     valueChange(null);
     isClickedClear.current = true;
+    refInput.current?.focus();
   };
   useEffect(() => {
     if (isShowData) {
