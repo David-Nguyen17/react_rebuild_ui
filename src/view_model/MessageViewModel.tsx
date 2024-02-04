@@ -10,6 +10,9 @@ export interface IProps {
 const MessageViewModel = (props: IProps) => {
   const { keySubscriber, currentKey } = props;
   const [message, setMessage] = useState("");
+  const [title, setTitle] = useState(
+    localStore.getValue<string>("title") ?? ""
+  );
   const [messages, setMessages] = useState("");
   const onSendMessage = () => {
     if (message?.trim()?.length) {
@@ -50,12 +53,31 @@ const MessageViewModel = (props: IProps) => {
   const onSubscribeUpdateData = (data: string) => {
     setMessages(data);
   };
+  const onSubscribeUpdateDataSend = (data: string) => {
+    setTitle(data);
+  };
   const listMessages = useMemo(() => {
     if (isJSONString(messages)) {
       return JSON.parse(messages);
     }
     return [];
   }, [messages]);
+
+  const finalTitle = useMemo(() => {
+    if (isJSONString(title)) {
+      const parseString = JSON.parse(title);
+      if (
+        typeof parseString !== "function" &&
+        typeof parseString !== "object" &&
+        typeof parseString !== "symbol"
+      ) {
+        return parseString;
+      }
+      return JSON.stringify(parseString);
+    }
+    return title;
+  }, [title]);
+
   const handleRenderContent = () => {
     if (Array.isArray(listMessages)) {
       return listMessages?.map((item) => (
@@ -73,10 +95,18 @@ const MessageViewModel = (props: IProps) => {
     }
     return <div>{JSON.stringify(listMessages)}</div>;
   };
+  const onAddTitle = () => {
+    localStore.addKeyValue(
+      "title",
+      `This is random number ${Math.floor(Math.random() * 10000)}`
+    );
+  };
   useEffect(() => {
     localStore.subscribe(keySubscriber, onSubscribeUpdateData);
+    localStore.subscribe("title", onSubscribeUpdateDataSend);
     return () => {
-      localStore.removeSubscribe();
+      localStore.removeSubscribe(keySubscriber);
+      localStore.removeSubscribe("title");
     };
   }, [keySubscriber]);
   return {
@@ -84,6 +114,8 @@ const MessageViewModel = (props: IProps) => {
     onSendMessage,
     onChange,
     message,
+    title: finalTitle,
+    onAddTitle,
   };
 };
 
