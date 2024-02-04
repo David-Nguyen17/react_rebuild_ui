@@ -1,20 +1,30 @@
-import { Country } from "@/App";
-import COUNTRIES from "@/data/country";
+import COUNTRIES, { Country } from "@/data/country";
+import { USERS, User } from "@/data/users";
 import AutoComplete from "@/ui/AutoComplete";
 import { useState } from "react";
 
 const AutoCompletePage = () => {
-  const [option, setOption] = useState<Country | null>(null);
-  const onChangeValue = (value: Country | null) => {
-    setOption(value);
+  const [country, setCountry] = useState<Country | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const onChangeValueCountry = (value: Country | null) => {
+    setCountry(value);
+  };
+  const onChangeValueUser = (value: User | null) => {
+    setUser(value);
   };
   return (
-    <div>
+    <div className="auto">
       <AutoComplete
         data={COUNTRIES}
-        value={option}
-        valueChange={onChangeValue}
+        value={country}
+        valueChange={onChangeValueCountry}
         keyLabel="label"
+      />
+      <AutoComplete
+        data={USERS}
+        value={user}
+        valueChange={onChangeValueUser}
+        keyLabel="name"
       />
     </div>
   );

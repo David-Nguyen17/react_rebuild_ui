@@ -5,12 +5,6 @@ import HomePage from "./pages/user_1";
 import MessagePage from "./pages/user_2";
 import localStore from "./store";
 
-export interface Country {
-  code: string;
-  label: string;
-  phone: string;
-}
-
 function App() {
   useEffect(() => {
     localStore.initData();

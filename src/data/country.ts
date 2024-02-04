@@ -1,4 +1,9 @@
-const COUNTRIES = [
+export interface Country {
+  code: string;
+  label: string;
+  phone: string;
+}
+const COUNTRIES: Country[] = [
   { code: "AD", label: "Andorra", phone: "376" },
   {
     code: "AE",

@@ -32,3 +32,8 @@ button {
   gap: 24px;
   margin: 24px;
 }
+
+.auto {
+  display: flex;
+  gap: 44px;
+}

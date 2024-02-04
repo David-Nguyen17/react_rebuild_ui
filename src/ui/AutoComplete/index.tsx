@@ -32,6 +32,7 @@ function AutoComplete<T>(props: IProps<T>) {
   const [isShowData, setShowData] = useState(false);
   const refInput = useRef<HTMLInputElement | null>(null);
   const refDiv = useRef<HTMLDivElement | null>(null);
+  const isClickedClear = useRef<boolean>(false);
   const handleDefaultTitle = useCallback(() => {
     if (getOptionLabel && value) {
       return getOptionLabel(value);
@@ -48,10 +49,12 @@ function AutoComplete<T>(props: IProps<T>) {
     if (
       refDiv.current &&
       event?.target instanceof Node &&
-      !refDiv.current?.contains(event?.target)
+      !refDiv.current?.contains(event?.target) &&
+      !isClickedClear.current
     ) {
-      console.log("vao dat");
       setShowData(false);
+    } else {
+      isClickedClear.current = false;
     }
   };
 
@@ -61,13 +64,16 @@ function AutoComplete<T>(props: IProps<T>) {
   const onClear = () => {
     setValueText("");
     valueChange(null);
+    isClickedClear.current = true;
   };
   useEffect(() => {
-    document.addEventListener("click", handleClickOutside);
+    if (isShowData) {
+      document.addEventListener("click", handleClickOutside);
+    }
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [refDiv]);
+  }, [isShowData]);
   const onClickItem = (item: T) => {
     valueChange(item);
     setShowData(false);
