@@ -14,10 +14,24 @@ const MessageViewModel = (props: IProps) => {
   const onSendMessage = () => {
     if (message?.trim()?.length) {
       const currentMessages = localStore.getValue<Message[]>(currentKey);
-      if (currentMessages?.length) {
+      if (Array.isArray(currentMessages)) {
         localStore.addKeyValue<Message[]>(currentKey, [
           ...currentMessages,
           { id: uuidv4(), message },
+        ]);
+      } else if (currentMessages) {
+        localStore.addKeyValue<Message[]>(currentKey, [
+          {
+            id: uuidv4(),
+            message:
+              typeof currentMessages === "string"
+                ? currentMessages
+                : JSON.stringify(currentMessages),
+          },
+          {
+            id: uuidv4(),
+            message,
+          },
         ]);
       } else {
         localStore.addKeyValue<Message[]>(currentKey, [
